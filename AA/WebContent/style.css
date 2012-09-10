@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+table{
+	background-color: #ABC;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	float: none;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	margin-right: auto;
+	margin-left: auto;
+	}
+a {
+	text-decoration: overline;
+}
