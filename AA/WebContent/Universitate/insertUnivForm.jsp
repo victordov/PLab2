@@ -9,35 +9,34 @@
 <%@ page import="md.victordov.lab.vo.Universitate"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
-
-<%
-	/* Header */
-%>
 <%@ include file="/headerJSP.jsp"%>
-<form method="post" action="updateUniv.jsp">
+
+<form method="post" action="insertUniv.jsp">
 	<%
 		GenericService<Universitate> genService = new UniversitateService(
 				new UnivDAO());
 		Universitate univ = new Universitate();
-		String id = request.getParameter("id");
-		Long no = Long.parseLong(id);
-		univ = genService.getOne(no);
-	%>
+		ArrayList<Universitate> arrayUniv = new ArrayList<Universitate>();
+		arrayUniv = genService.getAll();
+		%>
 	<table>
+	<caption>Monthly savings</caption>
+	<th>ID</th>
 	<th>Denumire</th>
 	<th>Adresa</th>
 	<th>Telefon</th>
 		<tr>
+		<td><input type="text" name="id" value="<%=genService.getAll().size()+1 %>"></td>
 			<td><input type="text" name="Denumire"
-				value="<%=univ.getNumeUniversitate()%>"></td>
+				value=""></td>
 			<td><input type="text" name="Adresa"
-				value="<%=univ.getAdresa()%>"></td>
+				value=""></td>
 			<td><input type="text" name="Telefon"
-				value="<%=univ.getTelefon()%>"></td>
-			<td><input type="hidden" name="id" value="<%=no%>"></td>
+				value=""></td>
+			
 		</tr>
 		<tr>
-			<td><input type="submit" name="Submit" value="Update"
+			<td><input type="submit" name="Submit" value="Insert"
 				style="background-color: #49743D; font-weight: bold; color: #ffffff;"></td>
 		</tr>
 

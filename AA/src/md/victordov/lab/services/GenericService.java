@@ -3,11 +3,10 @@ package md.victordov.lab.services;
 import java.util.ArrayList;
 
 import md.victordov.lab.common.exception.MyDaoException;
-import md.victordov.lab.vo.Universitate;
 
 public interface GenericService<T> {
 	
-	public long createFunction() throws MyDaoException;
+	public long createFunction(T t) throws MyDaoException;
 	
 	public boolean updateFunction(T t) throws MyDaoException;
 

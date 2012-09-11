@@ -39,32 +39,45 @@ function deleteRecord(id){
 	ArrayList<Universitate> univList = new ArrayList<Universitate>();
 	univList = genService.getAll();
 %>
-</br></br></br></br>
+</br>
+</br>
+</br>
+</br>
 <form method="post" name="form">
-<table border="0" cellpadding="3">
-	<thead>
-		<th>ID</th>
-		<th>Denumire</th>
-		<th>Adresa</th>
-		<th>Telefon</th>
-		<th>Edit</th>
-		<th>Delete</th>
-		<th>Insert</th>
-	</thead>
-	<%
-		int countID=0;
-		for (int i = 0; i < univList.size(); i++) {
-	%>
-	<tr>
-		<td><%=univList.get(i).getUniversitateId()%></td>
-		<td><%=univList.get(i).getNumeUniversitate()%></td>
-		<td><%=univList.get(i).getAdresa()%></td>
-		<td><%=univList.get(i).getTelefon()%></td>
-		<td><input type="button" name="edit" value="Edit" style="background-color:green;font-weight:bold;color:white;" onclick="editRecord(<%=i+1%>);" ></td>
-		<td><input type="button" name="delete" value="Delete" style="background-color:red;font-weight:bold;color:white;" onclick="deleteRecord(<%=i+1%>);" ></td>
-	</tr>
-	<%
-		}
-	%>
-</table>
+	<table border="0" cellpadding="3">
+		<thead>
+			<th>ID</th>
+			<th>Denumire</th>
+			<th>Adresa</th>
+			<th>Telefon</th>
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>Insert</th>
+		</thead>
+		<%
+			int countID = 0;
+			for (int i = 0; i < univList.size(); i++) {
+		%>
+		<tr>
+			<td><%=univList.get(i).getUniversitateId()%></td>
+			<td><%=univList.get(i).getNumeUniversitate()%></td>
+			<td><%=univList.get(i).getAdresa()%></td>
+			<td><%=univList.get(i).getTelefon()%></td>
+			<td><input type="button" name="edit" value="Edit"
+				style="background-color: green; font-weight: bold; color: white;"
+				onclick="editRecord(<%=i + 1%>);"></td>
+			<td><input type="button" name="delete" value="Delete"
+				style="background-color: red; font-weight: bold; color: white;"
+				onclick="deleteRecord(<%=i + 1%>);"></td>
+			<%
+				if (i == 0) {
+						out.print("<td rowspan = \""+univList.size() +"\"><a href=\"insertUnivForm.jsp\"><input type=\"button\" name=\"insert\"");
+						out.print(" value=\"Insert\" style=\"background-color:blue;font-weight:bold;color:white;\" ></a></td>");
+					}
+			%>
+		</tr>
+		<%
+			}
+		%>
+	</table>
 </form>

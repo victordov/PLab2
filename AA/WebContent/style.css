@@ -18,4 +18,9 @@ table{
 	}
 a {
 	text-decoration: overline;
+	font-size: large;
+}
+caption {
+	background-color: lime;
+	font-size: large;
 }

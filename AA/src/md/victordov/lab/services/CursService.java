@@ -2,58 +2,25 @@ package md.victordov.lab.services;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
+
 
 import md.victordov.lab.common.exception.MyDaoException;
-import md.victordov.lab.common.other.HasNumber;
 import md.victordov.lab.dao.CursDAO;
 import md.victordov.lab.vo.Curs;
 
 public class CursService implements GenericService<Curs> {
 
-	private Scanner _sc;
 	private CursDAO _cursDAO;
 
 	public CursService(CursDAO cursDAO) {
 		_cursDAO = cursDAO;
-		_sc = new Scanner(System.in);
+
 	}
 
 	@Override
-	public long createFunction() throws MyDaoException {
-		Curs curs = new Curs();
-		boolean nextInput = false;
-		String tempString = new String();
-		do {
-			try {
-				// System.out.println(MenuText.inID);
-				curs.setCursId(Long.parseLong(_sc.nextLine()));
-				nextInput = true;
-			} catch (NumberFormatException nfe) {
-				// System.out.println("Introduceti un numar valid");
-			}
-
-		} while (nextInput != true);
-
-		nextInput = false;
-
-		do {
-			// System.out.println(MenuText.inNumeCurs);
-			tempString = _sc.nextLine();
-			if (!HasNumber.hasNumber(tempString)) {
-				curs.setNumeCurs(tempString);
-				nextInput = true;
-			}
-		} while (nextInput != true);
-
-		// System.out.println(MenuText.inIdUniver);
-		curs.setUniversitateId(Long.parseLong(_sc.nextLine()));
-
-		// System.out.println(MenuText.inIdProfesor);
-		curs.setProfesorId(Long.parseLong(_sc.nextLine()));
+	public long createFunction(Curs curs) throws MyDaoException {
 
 		_cursDAO.create(curs);
-
 		return curs.getCursId();
 	}
 
