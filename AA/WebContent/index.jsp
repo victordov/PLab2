@@ -9,4 +9,9 @@
 <%@ page import="md.victordov.lab.vo.Universitate"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
+<!-- Header -->
 <%@ include file="/headerJSP.jsp"%>
+<h1>Acest website in JSP este un sablon pentru afisarea datelor HTML dintr-o baza de date</h1>
+<p>Pentru a utiliza si a naviga pe site apasati in <strong>Meniul</strong> de sus.</p>
+<!-- Footer -->
+<%@ include file="/footerJSP.jsp"%>

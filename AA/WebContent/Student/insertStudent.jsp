@@ -49,3 +49,5 @@ setTimeout("location.href = '/AA/Student/StudentJSP.jsp';",1500);
 	}
 %>
 
+<!-- Footer -->
+<%@ include file="/footerJSP.jsp"%>

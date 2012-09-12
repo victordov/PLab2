@@ -10,9 +10,7 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
 
-<%
-	/* Header */
-%>
+<!-- Header -->
 <%@ include file="/headerJSP.jsp"%>
 <%
 	GenericService<Universitate> genService = new UniversitateService(
@@ -28,8 +26,8 @@
 <% } else{%>
 <p>Eroare, nu a putut fi sters</p>
 <%}%>
+<!-- Footer -->
+<%@ include file="/footerJSP.jsp"%>
 <script type="text/JavaScript">
-
 setTimeout("location.href = '/AA/Universitate/UnivJSP.jsp';",1500);
-
 </script>

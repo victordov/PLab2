@@ -3,38 +3,34 @@
 <%@ page import="md.*"%>
 <%@ page import="md.victordov.lab.vo.*"%>
 <%@ page import="md.victordov.lab.common.exception.MyDaoException"%>
-<%@ page import="md.victordov.lab.dao.StudentDAO"%>
+<%@ page import="md.victordov.lab.dao.ProfesorDAO"%>
 <%@ page import="md.victordov.lab.services.GenericService"%>
-<%@ page import="md.victordov.lab.services.StudentService"%>
-<%@ page import="md.victordov.lab.vo.Student"%>
+<%@ page import="md.victordov.lab.services.ProfesorService"%>
+<%@ page import="md.victordov.lab.vo.Profesor"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ include file="/headerJSP.jsp"%>
 
-<form method="post" action="insertStudent.jsp">
+<form method="post" action="insertProfesor.jsp">
 	<%
-		GenericService<Student> genService = new StudentService(
-				new StudentDAO());
-		Student univ = new Student();
-		ArrayList<Student> arrayStud = new ArrayList<Student>();
-		arrayStud = genService.getAll();
+		GenericService<Profesor> genService = new ProfesorService(
+				new ProfesorDAO());
+		Profesor univ = new Profesor();
+		ArrayList<Profesor> arrayProf = new ArrayList<Profesor>();
+		arrayProf = genService.getAll();
 	%>
 	<table>
-		<caption>Student Insert</caption>
+		<caption>Profesor Insert</caption>
 		<th>ID</th>
 		<th>Nume</th>
 		<th>Prenume</th>
-		<th>Grupa</th>
-		<th>Email</th>
-		<th>Telefon</th>
+		<th>Adresa</th>
 		<tr>
 			<td><input type="text" name="id"
 				value="<%=genService.getAll().size() + 1%>"></td>
 			<td><input type="text" name="Nume" value=""></td>
 			<td><input type="text" name="Prenume" value=""></td>
-			<td><input type="text" name="Grupa" value=""></td>
-			<td><input type="text" name="Email" value=""></td>
-			<td><input type="text" name="Telefon" value=""></td>
+			<td><input type="text" name="Adresa" value=""></td>
 		</tr>
 		<tr>
 			<td><input type="submit" name="Submit" value="Insert"

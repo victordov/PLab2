@@ -42,3 +42,4 @@
 
 	</table>
 	</form>
+	<%@ include file="/footerJSP.jsp"%>

@@ -7,7 +7,7 @@
 <title>Use of include tag in Jsp</title>
 </head>
 <body>
-<table id="as" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#D90046">
+<table width="100%" id="as" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#D90046">
   <tr>
     <td width="20%">
       <p align="center"><font color="White"><a href="/AA/index.jsp">Home</a></font></td>
@@ -21,5 +21,3 @@
       <p align="center"><font color="White"><a href="/AA/Curs/CursJSP.jsp">Curs</a></font></td>
   </tr>
 </table>
-</body>
-</html>

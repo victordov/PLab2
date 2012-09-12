@@ -46,3 +46,6 @@
 
 	</table>
 </form>
+
+<!-- Footer -->
+<%@ include file="/footerJSP.jsp"%>

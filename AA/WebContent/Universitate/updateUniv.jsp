@@ -34,4 +34,5 @@
 <% } else{%>
 <p>Eroare</p>
 <%}%>
+<%@ include file="/footerJSP.jsp"%>
 <%response.sendRedirect("/AA/Universitate/UnivJSP.jsp");%>

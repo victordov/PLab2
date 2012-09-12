@@ -89,3 +89,6 @@ function deleteRecord(id){
 		</tr>
 	</table>
 </form>
+
+<!-- Footer -->
+<%@ include file="/footerJSP.jsp"%>

@@ -28,8 +28,10 @@
 <% } else{%>
 <p>Eroare, nu a putut fi sters</p>
 <%}%>
+
+<!-- Footer -->
+<%@ include file="/footerJSP.jsp"%>
+
 <script type="text/JavaScript">
-
-setTimeout("location.href = '/AA/Student/UnivJSP.jsp';",1500);
-
+setTimeout("location.href = '/AA/Student/StudentJSP.jsp';",1500);
 </script>

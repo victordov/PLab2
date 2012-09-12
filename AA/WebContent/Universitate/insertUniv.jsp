@@ -41,3 +41,5 @@
 <%
 	response.sendRedirect("/AA/Universitate/UnivJSP.jsp");
 %>
+
+<%@ include file="/footerJSP.jsp"%>
