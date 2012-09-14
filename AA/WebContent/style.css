@@ -15,12 +15,49 @@ table{
 	border-left-style: solid;
 	margin-right: auto;
 	margin-left: auto;
+	
 	}
 a {
 	text-decoration: overline;
 	font-size: large;
+	
+}
+a:HOVER{
+	color: green;
+	font-weight: bold;
 }
 caption {
 	background-color: lime;
 	font-size: large;
+}
+
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+#container {
+   min-height:100%;
+   position:relative;
+}
+
+#header {
+   background:#ffa;
+   padding:10px;
+   A:link{COLOR:red;};
+   
+}
+
+#footer {
+  	position: relative; 
+    bottom:0; 
+    height: 60px; 
+    width:100%;
+   
+   
+}
+#tableFooter{
+	width:100%;
+	height:60px;
+	background:#6cf;
 }

@@ -3,17 +3,17 @@
 <%@ page import="md.*"%>
 <%@ page import="md.victordov.lab.vo.*"%>
 <%@ page import="md.victordov.lab.common.exception.MyDaoException"%>
-<%@ page import="md.victordov.lab.dao.ProfesorDAO"%>
+<%@ page import="md.victordov.lab.dao.CursDAO"%>
 <%@ page import="md.victordov.lab.services.GenericService"%>
-<%@ page import="md.victordov.lab.services.ProfesorService"%>
-<%@ page import="md.victordov.lab.vo.Profesor"%>
+<%@ page import="md.victordov.lab.services.CursService"%>
+<%@ page import="md.victordov.lab.vo.Curs"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
 
 <html>
 	<head>
 		<link href="<%=request.getContextPath()%>/style.css" rel="stylesheet" type="text/css">
-		<title>Profesor Delete</title>
+		<title>Curs Delete</title>
 	</head>
 <body>
 
@@ -21,20 +21,20 @@
 <%@ include file="/headerJSP.jsp"%>
 
 <%
-	GenericService<Profesor> genService = new ProfesorService(
-			new ProfesorDAO());
-	Profesor prof = new Profesor();
-	String idProfesorString = request.getParameter("id");
-	Long idProfesor = Long.parseLong(idProfesorString);
+	GenericService<Curs> genService = new CursService(
+			new CursDAO());
+	Curs curs = new Curs();
+	String idCursString = request.getParameter("id");
+	Long idCurs = Long.parseLong(idCursString);
 	
-	if(genService.deleteFunction(idProfesor)==true){
+	if(genService.deleteFunction(idCurs)==true){
 %>
-<p>Profesorul fost sters</p>
+<p>Curs fost sters</p>
 
 <% } else{%>
 <p>Eroare, nu a putut fi sters</p>
 <p>Stergeti referinta din alt tabel</p>
 <%}%>
-<a href="<%=request.getContextPath()%>/Profesor/ProfesortJSP.jsp">Apasa
-	aici: <strong>Profesor</strong>
-</a>
+<a href="<%=request.getContextPath() %>/Curs/CursJSP.jsp">Pagina Curs</a>
+
+

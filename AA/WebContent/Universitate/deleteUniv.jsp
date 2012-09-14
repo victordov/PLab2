@@ -10,24 +10,41 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
 
-<!-- Header -->
-<%@ include file="/headerJSP.jsp"%>
-<%
-	GenericService<Universitate> genService = new UniversitateService(
-			new UnivDAO());
-	Universitate univ = new Universitate();
-	String idUniverString = request.getParameter("id");
-	Long idUniversitate = Long.parseLong(idUniverString);
-	
-	if(genService.deleteFunction(idUniversitate)==true){
-%>
-<p>A fost sters</p>
-<%response.sendRedirect("/AA/Universitate/UnivJSP.jsp");%>
-<% } else{%>
-<p>Eroare, nu a putut fi sters</p>
-<%}%>
-<!-- Footer -->
-<%@ include file="/footerJSP.jsp"%>
-<script type="text/JavaScript">
-setTimeout("location.href = '/AA/Universitate/UnivJSP.jsp';",1500);
-</script>
+<html>
+<head>
+<link href="<%=request.getContextPath()%>/style.css" rel="stylesheet"
+	type="text/css">
+<title>Home Page</title>
+</head>
+<body>
+
+	<!-- Header -->
+	<%@ include file="/headerJSP.jsp"%>
+
+	<%
+		GenericService<Universitate> genService = new UniversitateService(
+				new UnivDAO());
+		Universitate univ = new Universitate();
+		String idUniverString = request.getParameter("idUniversitate");
+		Long idUniversitate = Long.parseLong(idUniverString);
+
+		if (genService.deleteFunction(idUniversitate) == true) {
+	%>
+	<p>A fost sters</p>
+	<%
+		response.sendRedirect("/AA/Universitate/UnivJSP.jsp");
+	%>
+	<%
+		} else {
+	%>
+	<p>Eroare, nu a putut fi sters</p>
+	<%
+		}
+	%>
+
+	<a href="<%=request.getContextPath()%>/Universitate/UnivJSP.jsp">Apasa
+		aici: <strong>Universitate</strong>
+	</a>
+
+	<!-- Footer -->
+	<%@ include file="/footerJSP.jsp"%>

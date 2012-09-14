@@ -10,38 +10,44 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
 
-<%
-	/* Header */
-%>
-<%@ include file="/headerJSP.jsp"%>
-<%
-	GenericService<Profesor> genService = new ProfesorService(
-			new ProfesorDAO());
-	Profesor prof = new Profesor();
-	String idProfesorString = request.getParameter("id");
-	Long idProfesor = Long.parseLong(idProfesorString);
+<html>
+<head>
+<link href="<%=request.getContextPath()%>/style.css" rel="stylesheet"
+	type="text/css">
+<title>Profesor Edit</title>
+</head>
+<body>
 
-	String numeProfesor = request.getParameter("Nume");
-	String prenumeProfesor = request.getParameter("Prenume");
-	String adresaProfesor = request.getParameter("Adresa");
+	<!-- Header -->
+	<%@ include file="/headerJSP.jsp"%>
+	<%
+		GenericService<Profesor> genService = new ProfesorService(
+				new ProfesorDAO());
+		Profesor prof = new Profesor();
+		String idProfesorString = request.getParameter("id");
+		Long idProfesor = Long.parseLong(idProfesorString);
 
-	prof.setProfesorId(idProfesor);
-	prof.setNume(numeProfesor);
-	prof.setPrenume(prenumeProfesor);
-	prof.setAdresa(adresaProfesor);
-	if (genService.updateFunction(prof) == true) {
-%>
-<p>A fost reiinoit</p>
-<script type="text/JavaScript">
-setTimeout("location.href = '/AA/Profesor/ProfesorJSP.jsp';",1500);
-</script>
+		String numeProfesor = request.getParameter("Nume");
+		String prenumeProfesor = request.getParameter("Prenume");
+		String adresaProfesor = request.getParameter("Adresa");
 
-<%
-	} else {
-%>
-<p>Eroare</p>
-<%
-	}
-%>
-<!-- Footer -->
-<%@ include file="/footerJSP.jsp"%>
+		prof.setProfesorId(idProfesor);
+		prof.setNume(numeProfesor);
+		prof.setPrenume(prenumeProfesor);
+		prof.setAdresa(adresaProfesor);
+		if (genService.updateFunction(prof) == true) {
+	%>
+	<p>A fost reiinoit</p>
+	<%
+		} else {
+	%>
+	<p>Eroare</p>
+	<%
+		}
+	%>
+	<a href="<%=request.getContextPath()%>/Profesor/ProfesortJSP.jsp">Apasa
+		aici: <strong>Profesor</strong>
+	</a>
+
+	<!-- Footer -->
+	<%@ include file="/footerJSP.jsp"%>

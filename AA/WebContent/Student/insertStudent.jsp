@@ -36,11 +36,9 @@
 	if (genService.createFunction(stud) >= 0) {
 %>
 <p>A fost adaugat Student</p>
-<script type="text/JavaScript">
-
-setTimeout("location.href = '/AA/Student/StudentJSP.jsp';",1500);
-
-</script>
+<a href="<%=request.getContextPath()%>/Student/StudentJSP.jsp">Apasa
+	aici: <strong>Student</strong>
+</a>
 <%
 	} else {
 %>

@@ -20,18 +20,25 @@
 	Student univ = new Student();
 	String idStudentString = request.getParameter("id");
 	Long idStudent = Long.parseLong(idStudentString);
-	
-	if(genService.deleteFunction(idStudent)==true){
+
+	if (genService.deleteFunction(idStudent) == true) {
 %>
 <p>A fost sters</p>
-<%response.sendRedirect("/AA/Student/StudentJSP.jsp");%>
-<% } else{%>
+<%
+	response.sendRedirect("/AA/Student/StudentJSP.jsp");
+%>
+<%
+	} else {
+%>
 <p>Eroare, nu a putut fi sters</p>
-<%}%>
+<%
+	}
+%>
+
+<a href="<%=request.getContextPath()%>/Student/StudentJSP.jsp">Apasa
+	aici: <strong>Student</strong>
+</a>
+
 
 <!-- Footer -->
 <%@ include file="/footerJSP.jsp"%>
-
-<script type="text/JavaScript">
-setTimeout("location.href = '/AA/Student/StudentJSP.jsp';",1500);
-</script>

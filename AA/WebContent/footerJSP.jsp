@@ -1,5 +1,5 @@
-</br></br></br></br></br>
-<table width="100%">
+<div id="footer">
+<table id="tableFooter">
 	<tr>
 		<td colspan="2">Program prezentat pentru compania PENTALOG</td>
 	</tr>
@@ -8,5 +8,6 @@
 		<td align="right">Victor Dovgaliuc &copy;,2012</td>
 	</tr>
 </table>
+</div>
 </body>
 </html>

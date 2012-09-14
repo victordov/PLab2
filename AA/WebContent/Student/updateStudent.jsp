@@ -34,15 +34,17 @@
 	if (genService.updateFunction(stud) == true) {
 %>
 <p>A fost reiinoit</p>
-<script type="text/JavaScript">
-setTimeout("location.href = '/AA/Student/StudentJSP.jsp';",1500);
-</script>
+<a href="<%=request.getContextPath()%>/Student/StudentJSP.jsp">Apasa
+	aici: <strong>Student</strong>
+</a>
 
 <%
 	} else {
 %>
 <p>Eroare</p>
-<%}%>
+<%
+	}
+%>
 
 <!-- Footer -->
 <%@ include file="/footerJSP.jsp"%>

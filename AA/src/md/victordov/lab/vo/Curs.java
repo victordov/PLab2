@@ -1,7 +1,7 @@
 package md.victordov.lab.vo;
 
 public class Curs {
-	
+
 	private long cursId;
 	private String numeCurs;
 	private long universitateId;
@@ -20,7 +20,6 @@ public class Curs {
 		this.setUniversitateId(U_ID);
 		this.setProfesorId(P_ID);
 	}
-
 
 	public long getCursId() {
 		return cursId;
@@ -53,11 +52,10 @@ public class Curs {
 	public void setProfesorId(long p_id) {
 		this.profesorId = p_id;
 	}
-	
-	public void printCurs(){
-	    String format = "|%1$-10d|%2$-20s|%3$-15d|%4$-12d|\n";
-	    System.out.printf("|%-10d|%-20.20s|%-15d|%-12d|\n", 
-		    		this.getCursId(),this.getNumeCurs(),
-		    		this.getUniversitateId(),this.getProfesorId());
+
+	public void printCurs() {
+		System.out.printf("|%-10d|%-20.20s|%-15d|%-12d|\n", this.getCursId(),
+				this.getNumeCurs(), this.getUniversitateId(),
+				this.getProfesorId());
 	}
 }

@@ -9,14 +9,19 @@
 <%@ page import="md.victordov.lab.vo.Universitate"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.util.ArrayList"%>
+
+<html>
+	<head>
+		<link href="<%=request.getContextPath()%>/style.css" rel="stylesheet" type="text/css">
+		<title>Profesor</title>
+	</head>
+<body>
+
+<!-- Header -->
 <%@ include file="/headerJSP.jsp"%>
 
-
-<%
-	/* Header */
-%>
 <!-- Script pentru Update -->
-<script language="javascript">
+<script>
 function editRecord(id){
     var f=document.form;
     f.method="post";
@@ -25,7 +30,7 @@ function editRecord(id){
 }
 </script>
 
-<script language="javascript">
+<script>
 function deleteRecord(id){
     var f=document.form;
     f.method="post";
@@ -44,16 +49,18 @@ function deleteRecord(id){
 </br>
 </br>
 <form method="post" name="form">
-	<table border="0" cellpadding="3">
+	<table>
 	<caption>Profesor</caption>
 		<thead>
-			<th>ID</th>
-			<th>Nume</th>
-			<th>Prenume</th>
-			<th>Adresa</th>
-			<th>Edit</th>
-			<th>Delete</th>
-			<th align="center">Insert</th>
+		<tr>
+				<th>ID</th>
+				<th>Nume</th>
+				<th>Prenume</th>
+				<th>Adresa</th>
+				<th>Edit</th>
+				<th>Delete</th>
+				<th>Insert</th>
+			</tr>
 		</thead>
 		<%
 			int countID = 0;
@@ -66,7 +73,7 @@ function deleteRecord(id){
 			<td><%=profList.get(i).getAdresa()%></td>
 			<td><input type="button" name="edit" value="Edit"
 				style="background-color: green; font-weight: bold; color: white;"
-				onclick="editRecord(<%=i + 1%>);"></td>
+				onclick="editRecord(<%=profList.get(i).getProfesorId()%>);"></td>
 			<td><input type="button" name="delete" value="Delete"
 				style="background-color: red; font-weight: bold; color: white;"
 				onclick="deleteRecord(<%=profList.get(i).getProfesorId()%>);"></td>

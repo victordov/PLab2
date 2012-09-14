@@ -3,7 +3,6 @@ package md.victordov.lab.services;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 import md.victordov.lab.common.exception.MyDaoException;
 import md.victordov.lab.dao.CursDAO;
 import md.victordov.lab.vo.Curs;
@@ -43,14 +42,6 @@ public class CursService implements GenericService<Curs> {
 	public ArrayList<Curs> getAll() throws MyDaoException {
 		ArrayList<Curs> arrayCurs = new ArrayList<Curs>();
 		arrayCurs.addAll(_cursDAO.retrieve());
-		Iterator<Curs> it = arrayCurs.iterator();
-		// System.out.printf("|%-10s|%-20s|%-15s|%-12s|\n", "ID Curs",
-		// "Nume Curs", "ID Universitate", "ID Profesor");
-		while (it.hasNext()) {
-			Curs outputCurs = new Curs();
-			outputCurs = it.next();
-			outputCurs.printCurs();
-		}
 		return arrayCurs;
 	}
 
