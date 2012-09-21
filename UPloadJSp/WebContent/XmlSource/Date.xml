@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<studenti>
+
+ <student>
+    <s_id>26</s_id>
+	<nume>Victor</nume>
+	<prenume>Dovgaliuc</prenume>
+	<grupa>TI-103</grupa>
+    <email>victordov@yahoo.com</email>
+	<telFix>38-56-13</telFix>
+  </student>
+  
+ <student>
+    <s_id>27</s_id>
+	<nume>DARIE </nume>
+	<prenume>ELEONORA </prenume>
+	<grupa>TI-103</grupa>
+    <email>victordov@yahoo.com</email>
+	<telFix>48-12-93</telFix>
+  </student>
+  
+ <student>
+    <s_id>28</s_id>
+	<nume>DELIU </nume>
+	<prenume>IONEL</prenume>
+	<grupa>TI-103</grupa>
+    <email>victordov@yahoo.com</email>
+	<telFix>23-51-16</telFix>
+  </student>
+  
+  
+  </studenti>
