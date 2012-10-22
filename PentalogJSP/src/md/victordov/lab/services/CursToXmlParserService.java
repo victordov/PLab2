@@ -17,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import md.victordov.lab.Test.MxH;
 import md.victordov.lab.common.exception.MyDaoException;
 import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.common.other.LabParseStringConstants;
@@ -45,40 +46,36 @@ public class CursToXmlParserService {
 			System.out.println(e2.getMessage());
 		}
 
-		TransformerFactory factory = TransformerFactory.newInstance();
-		Transformer transformer = null;
-		try {
-			transformer = factory.newTransformer();
-		} catch (TransformerConfigurationException e2) {
-			System.out.println(e2.getMessage());
-		}
+		MxH mxh = new MxH();
+		Transformer transformer = mxh.getTransformer();
+		
 
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-				"XmlValidator.dtd");
+//		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
+//				"XmlValidator.dtd");
 
-		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-				.newInstance();
-		DocumentBuilder docBuilder = null;
-		try {
-			docBuilder = builderFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e2) {
-			System.out.println(e2.getMessage());
-		}
-		Document doc = docBuilder.newDocument();
-
+//		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+//				.newInstance();
+//		DocumentBuilder docBuilder = null;
+//		try {
+//			docBuilder = builderFactory.newDocumentBuilder();
+//		} catch (ParserConfigurationException e2) {
+//			System.out.println(e2.getMessage());
+//		}
+//		Document doc = docBuilder.newDocument();
+		Document doc = mxh.getDoc();
 		// questionset elements
-		Element rootElement = doc.createElement("lab2dBXml");
-
+//		Element rootElement = doc.createElement("lab2dBXml");
+		Element rootElement = mxh.getRootElement();
 		doc.appendChild(rootElement);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:u1",
-				LabParseStringConstants.UNIV_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:c1",
-				LabParseStringConstants.CURS_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:p1",
-				LabParseStringConstants.PROFESOR_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:s1",
-				LabParseStringConstants.STUDENT_NS_LINK);
+//		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:u1",
+//				LabParseStringConstants.UNIV_NS_LINK);
+//		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:c1",
+//				LabParseStringConstants.CURS_NS_LINK);
+//		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:p1",
+//				LabParseStringConstants.PROFESOR_NS_LINK);
+//		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:s1",
+//				LabParseStringConstants.STUDENT_NS_LINK);
 
 		// curs elements
 		Element cursuri = doc.createElement(LabParseStringConstants.CURS_ROOT);
@@ -89,8 +86,7 @@ public class CursToXmlParserService {
 			cursuri.appendChild(curs);
 			
 			Element s_id = doc.createElement(LabParseStringConstants.CURS_ID);
-			s_id.appendChild(doc.createTextNode(Long.toString(cursList.get(i)
-					.getCursId())));
+			s_id.appendChild(doc.createTextNode(Long.toString(cursList.get(i).getCursId())));
 			curs.appendChild(s_id);
 
 			Element nume_curs = doc.createElement(LabParseStringConstants.CURS_NUME);
