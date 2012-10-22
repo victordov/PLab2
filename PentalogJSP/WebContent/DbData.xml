@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE lab2dBXml SYSTEM "XmlValidator.dtd">
+
+<lab2dBXml>
+	<s1:studenti>
+
+		<s1:student>
+			<s1:s_id>26</s1:s_id>
+			<s1:nume>Buliga</s1:nume>
+			<s1:prenume>Andrei</s1:prenume>
+			<s1:grupa>TI-101</s1:grupa>
+			<s1:email>buligaandrei@gmail.com</s1:email>
+			<s1:telFix>41-21-64</s1:telFix>
+		</s1:student>
+
+		<s1:student>
+			<s1:s_id>27</s1:s_id>
+			<s1:nume>Crepcia</s1:nume>
+			<s1:prenume>Mihai</s1:prenume>
+			<s1:grupa>TI-101</s1:grupa>
+			<s1:email>crepciamihai@gmail.com</s1:email>
+			<s1:telFix>42-36-24</s1:telFix>
+		</s1:student>
+
+		<s1:student>
+			<s1:s_id>28</s1:s_id>
+			<s1:nume>Ivanescu</s1:nume>
+			<s1:prenume>Minu</s1:prenume>
+			<s1:grupa>TI-101</s1:grupa>
+			<s1:email>ivanescuminu@gmail.com</s1:email>
+			<s1:telFix>32-36-24</s1:telFix>
+		</s1:student>
+
+		<s1:student>
+			<s1:s_id>29</s1:s_id>
+			<s1:nume>Moldovan</s1:nume>
+			<s1:prenume>Vasile</s1:prenume>
+			<s1:grupa>TI-102</s1:grupa>
+			<s1:email>moldovanvasile@gmail.com</s1:email>
+			<s1:telFix>94-28-55</s1:telFix>
+		</s1:student>
+
+	</s1:studenti>
+
+	<p1:profesori>
+
+		<p1:profesor>
+			<p1:p_id>8</p1:p_id>
+			<p1:nume>Chiorsac</p1:nume>
+			<p1:prenume>Mircea</p1:prenume>
+			<p1:adresa>str. Mihai Eminescu, 23</p1:adresa>
+		</p1:profesor>
+
+		<p1:profesor>
+			<p1:p_id>9</p1:p_id>
+			<p1:nume>Sidelnicov</p1:nume>
+			<p1:prenume>Vasile</p1:prenume>
+			<p1:adresa>str. Petru Zadnipru, 11</p1:adresa>
+		</p1:profesor>
+
+		<p1:profesor>
+			<p1:p_id>10</p1:p_id>
+			<p1:nume>Diligul</p1:nume>
+			<p1:prenume>Alexandru</p1:prenume>
+			<p1:adresa>str. Banulescu Bodoni, 19</p1:adresa>
+		</p1:profesor>
+
+		<p1:profesor>
+			<p1:p_id>11</p1:p_id>
+			<p1:nume>Nichitin</p1:nume>
+			<p1:prenume>Veaceslav</p1:prenume>
+			<p1:adresa>str. Sciusev, 13</p1:adresa>
+		</p1:profesor>
+
+	</p1:profesori>
+
+	<c1:cursuri>
+
+		<c1:curs>
+			<c1:c_id>10</c1:c_id>
+			<c1:nume_curs>Electronica</c1:nume_curs>
+			<c1:u_id>1</c1:u_id>
+			<c1:p_id>2</c1:p_id>
+		</c1:curs>
+
+		<c1:curs>
+			<c1:c_id>11</c1:c_id>
+			<c1:nume_curs>Arta Vorbirii</c1:nume_curs>
+			<c1:u_id>2</c1:u_id>
+			<c1:p_id>3</c1:p_id>
+		</c1:curs>
+
+		<c1:curs>
+			<c1:c_id>12</c1:c_id>
+			<c1:nume_curs>Tele Comunicatii</c1:nume_curs>
+			<c1:u_id>1</c1:u_id>
+			<c1:p_id>1</c1:p_id>
+		</c1:curs>
+
+		<c1:curs>
+			<c1:c_id>13</c1:c_id>
+			<c1:nume_curs>SDA</c1:nume_curs>
+			<c1:u_id>2</c1:u_id>
+			<c1:p_id>4</c1:p_id>
+		</c1:curs>
+
+	</c1:cursuri>
+
+<u1:universitati>
+		
+		<u1:universitate>
+			<u1:u_id>4</u1:u_id>
+			<u1:nume_univer>ASSE</u1:nume_univer>
+			<u1:adresa>str. Mircea cel Batrin, 9</u1:adresa>
+			<u1:telefon>(+37322) 237-378</u1:telefon>
+		</u1:universitate>
+		
+	</u1:universitati>
+
+</lab2dBXml>

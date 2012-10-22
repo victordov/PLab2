@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>Pentalog JSP</display-name>
+	<description>Database Administration using Web Interface</description>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>UnivXmlDownloadServlet</servlet-name>
+		<servlet-class>md.victordov.lab.servlets.UnivXmlDownloadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>StudentXmlDownloadServlet</servlet-name>
+		<servlet-class>md.victordov.lab.servlets.StudentXmlDownloadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CursXmlDownloadServlet</servlet-name>
+		<servlet-class>md.victordov.lab.servlets.CursXmlDownloadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProfesorXmlDownloadServlet</servlet-name>
+		<servlet-class>md.victordov.lab.servlets.ProfesorXmlDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UnivXmlDownloadServlet</servlet-name>
+		<url-pattern>/univxmldownloadservlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StudentXmlDownloadServlet</servlet-name>
+		<url-pattern>/studentxmldownloadservlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CursXmlDownloadServlet</servlet-name>
+		<url-pattern>/cursxmldownloadservlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProfesorXmlDownloadServlet</servlet-name>
+		<url-pattern>/profesorxmldownloadservlet</url-pattern>
+	</servlet-mapping>
+</web-app>

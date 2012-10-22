@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!ELEMENT lab2dBXml (s1:studenti*, p1:profesori*, c1:cursuri*, u1:universitati*)>
+
+<!ELEMENT s1:studenti (s1:student*)>
+<!ELEMENT s1:student (s1:s_id, s1:nume, s1:prenume, s1:grupa, s1:email, s1:telFix)>
+<!ELEMENT s1:s_id (#PCDATA)>
+<!ELEMENT s1:nume (#PCDATA)>
+<!ELEMENT s1:prenume (#PCDATA)>
+<!ELEMENT s1:grupa (#PCDATA)>
+<!ELEMENT s1:email (#PCDATA)>
+<!ELEMENT s1:telFix (#PCDATA)>
+
+<!ELEMENT p1:profesori (p1:profesor*)>
+<!ELEMENT p1:profesor (p1:p_id, p1:nume, p1:prenume, p1:adresa)>
+<!ELEMENT p1:p_id (#PCDATA)>
+<!ELEMENT p1:nume (#PCDATA)>
+<!ELEMENT p1:prenume (#PCDATA)>
+<!ELEMENT p1:adresa (#PCDATA)>
+
+<!ELEMENT c1:cursuri (c1:curs*)>
+<!ELEMENT c1:curs (c1:c_id, c1:nume_curs, c1:u_id, c1:p_id)>
+<!ELEMENT c1:c_id (#PCDATA)>
+<!ELEMENT c1:nume_curs (#PCDATA)>
+<!ELEMENT c1:u_id (#PCDATA)>
+<!ELEMENT c1:p_id (#PCDATA)>
+
+<!ELEMENT u1:universitati (u1:universitate*)>
+<!ELEMENT u1:universitate (u1:u_id, u1:nume_univer, u1:adresa, u1:telefon)>
+<!ELEMENT u1:u_id (#PCDATA)>
+<!ELEMENT u1:nume_univer (#PCDATA)>
+<!ELEMENT u1:adresa (#PCDATA)>
+<!ELEMENT u1:telefon (#PCDATA)>
