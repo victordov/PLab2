@@ -8,31 +8,30 @@ import md.victordov.lab.vo.Profesor;
 
 public class ProfesorService implements GenericService<Profesor> {
 
-	private ProfesorDAO _profesorDAO;
+	private ProfesorDAO profesorDAO;
 
 	public ProfesorService(ProfesorDAO profesorDAO) {
-		_profesorDAO = profesorDAO;
+		this.profesorDAO = profesorDAO;
 	}
 
 	
 	public long createFunction(Profesor prof) throws MyDaoException {
 
-		_profesorDAO.create(prof);
+		this.profesorDAO.create(prof);
 		return prof.getProfesorId();
 	}
 	 
 	
 	public boolean updateFunction(Profesor prof) throws MyDaoException {
 
-		return _profesorDAO.update(prof);
+		return this.profesorDAO.update(prof);
 	}
 
 	
 	public Profesor getOne(Long id) throws MyDaoException {
 
 		Profesor prof = new Profesor();
-
-		prof = _profesorDAO.retrieve(id);
+		prof = this.profesorDAO.retrieve(id);
 		return prof;
 
 	}
@@ -40,7 +39,7 @@ public class ProfesorService implements GenericService<Profesor> {
 	
 	public ArrayList<Profesor> getAll() throws MyDaoException {
 		ArrayList<Profesor> arrayProf = new ArrayList<Profesor>();
-		arrayProf.addAll(_profesorDAO.retrieve());
+		arrayProf.addAll(this.profesorDAO.retrieve());
 		
 		return arrayProf;
 	}
@@ -48,7 +47,7 @@ public class ProfesorService implements GenericService<Profesor> {
 	
 	public boolean deleteFunction(Long id) {
 
-		return _profesorDAO.delete(id);
+		return this.profesorDAO.delete(id);
 	}
 
 }

@@ -8,48 +8,39 @@ import md.victordov.lab.vo.Student;
 
 public class StudentService implements GenericService<Student> {
 
-	private StudentDAO _studentDAO;
+	private StudentDAO studentDAO;
 
 	public StudentService(StudentDAO studentDAO) {
-
-		_studentDAO = studentDAO;
+		this.studentDAO = studentDAO;
 	}
 
-	
 	public long createFunction(Student stud) {
-		
-		_studentDAO.create(stud);
+
+		this.studentDAO.create(stud);
 		return stud.getStudentId();
 	}
 
-	
 	public boolean updateFunction(Student stud) throws MyDaoException {
 
-	
-		return _studentDAO.update(stud);
+		return this.studentDAO.update(stud);
 	}
 
-	
 	public Student getOne(Long id) {
 		Student stud = new Student();
-		stud = (Student) _studentDAO.retrieve(id);
-
+		stud = (Student) this.studentDAO.retrieve(id);
 		return stud;
-
 	}
 
-	
 	public ArrayList<Student> getAll() {
 		ArrayList<Student> arrayStud = new ArrayList<Student>();
-		arrayStud.addAll(_studentDAO.retrieve());
-				
+		arrayStud.addAll(this.studentDAO.retrieve());
+
 		return arrayStud;
 	}
 
-	
 	public boolean deleteFunction(Long id) {
-		
-		return _studentDAO.delete(id);
+
+		return this.studentDAO.delete(id);
 	}
 
 }

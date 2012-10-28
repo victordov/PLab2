@@ -4,19 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public final class  ConnectionFactory {
-	private String driverClassName = "com.mysql.jdbc.Driver";
-	private String connectionUrl = "jdbc:mysql://localhost:3306/uni2_4t";
-	private String dbUser = "root";
-	private String dbPwd = "root";
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
-	private static ConnectionFactory connectionFactory = null;
+import md.victordov.lab.common.other.ErrorStringConstants;
+
+public final class ConnectionFactory {
 
 	private ConnectionFactory() {
 		try {
 			Class.forName(driverClassName);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.CL_NOT_FOUND, e);
 		}
 	}
 
@@ -32,4 +31,12 @@ public final class  ConnectionFactory {
 		}
 		return connectionFactory;
 	}
+
+	private static Logger logger = LogManager
+			.getLogger(ConnectionFactory.class);
+	private String driverClassName = "com.mysql.jdbc.Driver";
+	private String connectionUrl = "jdbc:mysql://localhost:3306/uni2_4t";
+	private String dbUser = "root";
+	private String dbPwd = "root";
+	private static ConnectionFactory connectionFactory = null;
 }

@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.services.ProfesorToXmlParser;
 
 /**
@@ -21,13 +25,14 @@ import md.victordov.lab.services.ProfesorToXmlParser;
 @WebServlet("/ProfesorXmlDownloadServlet")
 public class ProfesorXmlDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	static Logger logger = LogManager
+			.getLogger(ProfesorXmlDownloadServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ProfesorXmlDownloadServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,18 +41,24 @@ public class ProfesorXmlDownloadServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info("Start from doGet to Create the download file");
 		try {
 
 			String parent = "Profesor";
 			Date dd = new Date();
 			String dateString = new SimpleDateFormat("_y_MM_dd_HH_mm_ss")
 					.format(dd);
-			System.out.println(dateString);
 			String outputFileName = parent + dateString + ".xml";
 
 			ServletOutputStream myOut = null;
-			byte[] byteBuf = ProfesorToXmlParser.parser().getBytes();
+			byte[] byteBuf = null;
+			try {
+				byteBuf = ProfesorToXmlParser.parser().getBytes();
+			} catch (MyServiceException e) {
+				logger.error("eroare in profexor xml parser", e);
+
+			}
+
 			ByteArrayInputStream in = new ByteArrayInputStream(byteBuf);
 			BufferedInputStream buf = new BufferedInputStream(in);
 			try {
@@ -77,13 +88,12 @@ public class ProfesorXmlDownloadServlet extends HttpServlet {
 					myOut.close();
 				if (buf != null)
 					buf.close();
-
 			}
 
 		} catch (ServletException se) {
-			System.out.println(se.getMessage());
+			logger.error("Could not create the download file", se);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.warn("Exception occured in Profesor Xml Download Servlet", e);
 		}
 	}
 
@@ -93,7 +103,7 @@ public class ProfesorXmlDownloadServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 	}
 
 }

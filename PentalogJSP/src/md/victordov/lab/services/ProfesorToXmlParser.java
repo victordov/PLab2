@@ -14,9 +14,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import md.victordov.lab.Test.XmlDomHandler;
 import md.victordov.lab.common.exception.MyDaoException;
 import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.common.other.LabParseStringConstants;
@@ -25,15 +28,24 @@ import md.victordov.lab.vo.Profesor;
 
 /**
  * @author victor
- *
+ * 
  */
 public class ProfesorToXmlParser {
 
 	/**
 	 * @param args
-	 * @param parser, will be accessed as a static function without Class initialization
+	 * @param parser
+	 *            , will be accessed as a static function without Class
+	 *            initialization
+	 * @throws MyServiceException
+	 * @throws MyDaoException
+	 * <strong>parser method will extract the records from table profesor from database and will be stored in the Array of Profesor class</strong>
+	 *  
 	 */
-	public static String parser() {
+
+	static Logger logger = LogManager.getLogger(ProfesorToXmlParser.class);
+	public static String parser() throws MyServiceException, MyDaoException {
+		logger.info("Initializare metoda parser");
 		GenericService<Profesor> genService = new ProfesorService(
 				new ProfesorDAO());
 		ArrayList<Profesor> profList = new ArrayList<Profesor>();
@@ -41,50 +53,24 @@ public class ProfesorToXmlParser {
 			profList = genService.getAll();
 		} catch (MyDaoException e2) {
 
-			System.out.println(e2.getMessage());
+			throw new MyServiceException("Hello", e2);
 		}
 
-		TransformerFactory factory = TransformerFactory.newInstance();
-		Transformer transformer = null;
-		try {
-			transformer = factory.newTransformer();
-		} catch (TransformerConfigurationException e2) {
-			System.out.println(e2.getMessage());
-		}
+		XmlDomHandler mxh = new XmlDomHandler();
+		Transformer transformer = mxh.getTransformer();
+		Document doc = mxh.getDoc();
 
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-				"XmlValidator.dtd");
-
-		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-				.newInstance();
-		DocumentBuilder docBuilder = null;
-		try {
-			docBuilder = builderFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e2) {
-			System.out.println(e2.getMessage());
-		}
-		Document doc = docBuilder.newDocument();
-
-		// questionset elements
-		Element rootElement = doc.createElement("lab2dBXml");
-
+		Element rootElement = mxh.getRootElement();
 		doc.appendChild(rootElement);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:u1",
-				LabParseStringConstants.UNIV_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:c1",
-				LabParseStringConstants.CURS_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:p1",
-				LabParseStringConstants.PROFESOR_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:s1" ,
-				LabParseStringConstants.STUDENT_NS_LINK);
 
 		// student elements
-		Element profesori = doc.createElement(LabParseStringConstants.PROF_ROOT);
+		Element profesori = doc
+				.createElement(LabParseStringConstants.PROF_ROOT);
 		rootElement.appendChild(profesori);
 
 		for (int i = 0; i < profList.size(); i++) {
-			Element profesor = doc.createElement(LabParseStringConstants.PROF_TAG);
+			Element profesor = doc
+					.createElement(LabParseStringConstants.PROF_TAG);
 
 			profesori.appendChild(profesor);
 			Element u_id = doc.createElement(LabParseStringConstants.PROF_ID);
@@ -94,21 +80,20 @@ public class ProfesorToXmlParser {
 
 			Element nume = doc.createElement(LabParseStringConstants.PROF_NUME);
 			profesor.appendChild(nume);
-			nume.appendChild(doc.createTextNode(profList.get(i)
-					.getNume()));
+			nume.appendChild(doc.createTextNode(profList.get(i).getNume()));
 
-			Element prenume = doc.createElement(LabParseStringConstants.PROF_PRENUME);
+			Element prenume = doc
+					.createElement(LabParseStringConstants.PROF_PRENUME);
 			profesor.appendChild(prenume);
-			prenume.appendChild(doc.createTextNode(profList.get(i).getPrenume()));
+			prenume.appendChild(doc
+					.createTextNode(profList.get(i).getPrenume()));
 
-			Element adresa = doc.createElement(LabParseStringConstants.PROF_ADRESA);
+			Element adresa = doc
+					.createElement(LabParseStringConstants.PROF_ADRESA);
 			profesor.appendChild(adresa);
-			adresa.appendChild(doc
-					.createTextNode(profList.get(i).getAdresa()));
+			adresa.appendChild(doc.createTextNode(profList.get(i).getAdresa()));
 
 		}
-
-		// aici transformer
 
 		StringWriter sw = new StringWriter();
 		StreamResult result = new StreamResult(sw);
@@ -116,18 +101,10 @@ public class ProfesorToXmlParser {
 		try {
 			transformer.transform(source, result);
 		} catch (TransformerException e) {
-			/* Arunca Exceptia MyService inconjurat de try-catch block */
-			try {
-				throw new MyServiceException(e.getMessage(), e);
-			} catch (MyServiceException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw new MyServiceException(e.getMessage(), e);
 		}
 		String xmlString = sw.toString();
-		System.out.println(xmlString);
-
+		logger.info("Sfirsit metoda parser");
 		return xmlString;
 	}
-
 }

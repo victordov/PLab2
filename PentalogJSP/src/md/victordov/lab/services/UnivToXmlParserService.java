@@ -6,20 +6,18 @@ package md.victordov.lab.services;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import md.victordov.lab.Test.XmlDomHandler;
 import md.victordov.lab.common.exception.MyDaoException;
 import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.common.other.LabParseStringConstants;
@@ -34,60 +32,40 @@ public class UnivToXmlParserService {
 
 	/**
 	 * @param args
-	 * @param parser, will be accessed as a static function without Class initialization
+	 * @param parser
+	 *            , will be accessed as a static function without Class
+	 *            initialization
+	 * @throws TransformerException
 	 */
-	public static String parser() {
+	static Logger logger = LogManager.getLogger(UnivToXmlParserService.class);
+	public static String parser() throws MyServiceException, MyDaoException,
+			TransformerException {
+		logger.info("Initializare extragere BD in String");
 		GenericService<Universitate> genService = new UniversitateService(
 				new UnivDAO());
 		ArrayList<Universitate> univList = new ArrayList<Universitate>();
 		try {
 			univList = genService.getAll();
-		} catch (MyDaoException e2) {
+		} catch (MyDaoException mDexcp) {
 
-			System.out.println(e2.getMessage());
+			throw mDexcp;
 		}
 
-		TransformerFactory factory = TransformerFactory.newInstance();
-		Transformer transformer = null;
-		try {
-			transformer = factory.newTransformer();
-		} catch (TransformerConfigurationException e2) {
-			System.out.println(e2.getMessage());
-		}
+		XmlDomHandler mxh = new XmlDomHandler();
+		Transformer transformer = mxh.getTransformer();
+		Document doc = mxh.getDoc();
 
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-				"XmlValidator.dtd");
-
-		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-				.newInstance();
-		DocumentBuilder docBuilder = null;
-		try {
-			docBuilder = builderFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e2) {
-			System.out.println(e2.getMessage());
-		}
-		Document doc = docBuilder.newDocument();
-
-		// questionset elements
-		Element rootElement = doc.createElement("lab2dBXml");
-
+		Element rootElement = mxh.getRootElement();
 		doc.appendChild(rootElement);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:u1",
-				LabParseStringConstants.UNIV_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:c1",
-				LabParseStringConstants.CURS_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:p1",
-				LabParseStringConstants.PROFESOR_NS_LINK);
-		rootElement.setAttributeNS(LabParseStringConstants.W3_XMLNS, "xmlns:s1",
-				LabParseStringConstants.STUDENT_NS_LINK);
 
 		// student elements
-		Element universitati = doc.createElement(LabParseStringConstants.UNIV_ROOT);
+		Element universitati = doc
+				.createElement(LabParseStringConstants.UNIV_ROOT);
 		rootElement.appendChild(universitati);
 
 		for (int i = 0; i < univList.size(); i++) {
-			Element universitate = doc.createElement(LabParseStringConstants.UNIV_TAG);
+			Element universitate = doc
+					.createElement(LabParseStringConstants.UNIV_TAG);
 
 			universitati.appendChild(universitate);
 			Element u_id = doc.createElement(LabParseStringConstants.UNIV_ID);
@@ -100,11 +78,13 @@ public class UnivToXmlParserService {
 			nume.appendChild(doc.createTextNode(univList.get(i)
 					.getNumeUniversitate()));
 
-			Element adresa = doc.createElement(LabParseStringConstants.UNIV_ADRESA);
+			Element adresa = doc
+					.createElement(LabParseStringConstants.UNIV_ADRESA);
 			universitate.appendChild(adresa);
 			adresa.appendChild(doc.createTextNode(univList.get(i).getAdresa()));
 
-			Element telefon = doc.createElement(LabParseStringConstants.UNIV_TEL);
+			Element telefon = doc
+					.createElement(LabParseStringConstants.UNIV_TEL);
 			universitate.appendChild(telefon);
 			telefon.appendChild(doc
 					.createTextNode(univList.get(i).getTelefon()));
@@ -119,16 +99,10 @@ public class UnivToXmlParserService {
 		try {
 			transformer.transform(source, result);
 		} catch (TransformerException e) {
-			/* Arunca Exceptia MyService inconjurat de try-catch block */
-			try {
-				throw new MyServiceException(e.getMessage(), e);
-			} catch (MyServiceException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 		String xmlString = sw.toString();
-		//System.out.println(xmlString);
+		logger.info("Sfirsit extragere BD in String");
 
 		return xmlString;
 	}

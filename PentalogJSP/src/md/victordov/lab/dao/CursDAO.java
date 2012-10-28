@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import md.victordov.lab.common.other.ErrorStringConstants;
 import md.victordov.lab.connection.ConnectionFactory;
 import md.victordov.lab.vo.Curs;
 
@@ -18,7 +22,7 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 	 * 
 	 */
 	private static final long serialVersionUID = -380776877416367670L;
-
+	private static Logger logger = LogManager.getLogger(CursDAO.class);
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -53,7 +57,7 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.CURS_NOT_FOUND,e);
 		} finally {
 			try {
 				if (resultSet != null)
@@ -64,9 +68,9 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 					connection.close();
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS,e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_RETRIEVE,e);
 			}
 
 		}
@@ -94,7 +98,7 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.CURS_NOT_FOUND,e);
 		} finally {
 			try {
 				if (resultSet != null)
@@ -105,9 +109,9 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 					connection.close();
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS,e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_RETRIEVE,e);
 			}
 		}
 		return tempCurs;
@@ -127,7 +131,7 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 			ptmt.executeUpdate();
 			status = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.CURS_NOT_CREATED,e);
 			status = false;
 		} finally {
 			try {
@@ -136,11 +140,11 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 				if (connection != null)
 					connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS,e);
 				status = false;
 			} catch (Exception e) {
 				e.printStackTrace();
-				status = false;
+				logger.warn(ErrorStringConstants.ERR_CREATE,e);
 			}
 		}
 		return status;
@@ -157,7 +161,7 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 			ptmt.executeUpdate();
 			succes = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.CURS_NOT_DELETED,e);
 			succes = false;
 		} finally {
 			try {
@@ -168,9 +172,9 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 			}
 
 			catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS,e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_DELETE,e);
 
 			}
 		}
@@ -191,7 +195,7 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 			ptmt.executeUpdate();
 			succes = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.CURS_NOT_UPDATED,e);
 			succes = false;
 		} finally {
 			try {
@@ -202,9 +206,9 @@ public class CursDAO implements Serializable, GenericDAO<Curs> {
 			}
 
 			catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS,e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_UPDATE,e);
 
 			}
 		}

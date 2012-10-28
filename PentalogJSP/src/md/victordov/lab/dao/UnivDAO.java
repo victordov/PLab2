@@ -8,16 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import md.victordov.lab.common.other.ErrorStringConstants;
 import md.victordov.lab.connection.ConnectionFactory;
 import md.victordov.lab.vo.Universitate;
-
 
 public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 
 	/**
-	 * 
+	 * @author victor Clasa UnivDAO - Universitate Data Access Object, classa
+	 *         destinata sa faca legatura dintre baza de date si utilizator
+	 *         gestionind clasa Universitate Executa 4 tipuri de functii CRUD
 	 */
 	private static final long serialVersionUID = -5068467300824574257L;
+	private static Logger logger = LogManager.getLogger(UnivDAO.class);
 
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -33,7 +39,6 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 		return conn;
 	}
 
-	
 	public Collection<Universitate> retrieve() {
 		Collection<Universitate> colUniv = new ArrayList<Universitate>();
 		try {
@@ -51,7 +56,7 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.UNIVERSITATE_NOT_FOUND, e);
 		} finally {
 			try {
 				if (resultSet != null)
@@ -62,9 +67,9 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 					connection.close();
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_RETRIEVE, e);
 			}
 
 		}
@@ -75,7 +80,6 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 
 	}
 
-	
 	public Universitate retrieve(long id) {
 		Universitate tempUniv = new Universitate();
 		try {
@@ -93,7 +97,7 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.UNIVERSITATE_NOT_FOUND, e);
 		} finally {
 			try {
 				if (resultSet != null)
@@ -104,9 +108,9 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 					connection.close();
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_RETRIEVE, e);
 			}
 
 		}
@@ -115,7 +119,6 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 
 	}
 
-	
 	public boolean create(Universitate t) {
 		boolean state = true;
 		try {
@@ -129,7 +132,7 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 			ptmt.executeUpdate();
 			state = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.UNIVERSITATE_NOT_CREATED, e);
 			state = false;
 		} finally {
 			try {
@@ -139,9 +142,9 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 					connection.close();
 			} catch (SQLException e) {
 				state = false;
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_CREATE, e);
 				state = false;
 			}
 
@@ -150,7 +153,6 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 
 	}
 
-	
 	public boolean update(Universitate t) {
 		boolean state = true;
 		try {
@@ -164,7 +166,7 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 			ptmt.executeUpdate();
 			state = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.UNIVERSITATE_NOT_UPDATED, e);
 			state = false;
 		} finally {
 			try {
@@ -175,9 +177,9 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 			}
 
 			catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_UPDATE, e);
 
 			}
 		}
@@ -185,7 +187,6 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 
 	}
 
-	
 	public boolean delete(Long id) {
 		boolean succes = true;
 		try {
@@ -196,7 +197,7 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 			ptmt.executeUpdate();
 			succes = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.UNIVERSITATE_NOT_DELETED, e);
 			succes = false;
 		} finally {
 			try {
@@ -207,9 +208,9 @@ public class UnivDAO implements GenericDAO<Universitate>, Serializable {
 			}
 
 			catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_DELETE, e);
 
 			}
 		}

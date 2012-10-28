@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.services.CursToXmlParserService;
 
 /**
@@ -27,27 +31,33 @@ public class CursXmlDownloadServlet extends HttpServlet {
 	 */
 	public CursXmlDownloadServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	static Logger logger = LogManager.getLogger(CursXmlDownloadServlet.class);
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info("Download Servlet Initialization");
 		try {
 
 			String parent = "Curs";
 			Date dd = new Date();
 			String dateString = new SimpleDateFormat("_y_MM_dd_HH_mm_ss")
 					.format(dd);
-			System.out.println(dateString);
+			//System.out.println(dateString);
 			String outputFileName = parent + dateString + ".xml";
 
 			ServletOutputStream myOut = null;
-			byte[] byteBuf = CursToXmlParserService.parser().getBytes();
+			byte[] byteBuf = null;
+			try{
+				byteBuf = CursToXmlParserService.parser().getBytes();
+			}catch(MyServiceException mse){
+				logger.error("Nu se poate de facut Conversia String to Byte", mse);
+			}
+			
 			ByteArrayInputStream in = new ByteArrayInputStream(byteBuf);
 			BufferedInputStream buf = new BufferedInputStream(in);
 			try {
@@ -81,10 +91,13 @@ public class CursXmlDownloadServlet extends HttpServlet {
 			}
 
 		} catch (ServletException se) {
-			System.out.println(se.getMessage());
+			//System.out.println(se.getMessage());
+			logger.error("Exceptie serlet" , se);
 		} catch (Exception e) {
-			System.out.println(e);
+			//System.out.println(e);
+			logger.error("Eroare necunoscuta" , e);
 		}
+		logger.info("Download Servlet End");
 	}
 
 	/**
@@ -93,7 +106,6 @@ public class CursXmlDownloadServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

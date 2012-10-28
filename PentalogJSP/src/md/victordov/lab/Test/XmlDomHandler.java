@@ -10,18 +10,21 @@ import javax.xml.transform.TransformerFactory;
 
 import md.victordov.lab.common.other.LabParseStringConstants;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class MxH {
+public class XmlDomHandler {
+	private static Logger logger = LogManager.getLogger(XmlDomHandler.class);
 
-	public MxH() {
+	public XmlDomHandler() {
 		this.factory = TransformerFactory.newInstance();
 		this.transformer = null;
 		try {
 			transformer = factory.newTransformer();
 		} catch (TransformerConfigurationException e2) {
-
+			logger.error("Nu a fost posibil de creat Transformer", e2);
 		}
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
@@ -31,7 +34,7 @@ public class MxH {
 		try {
 			docBuilder = builderFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e2) {
-			System.out.println(e2.getMessage());
+			logger.error("Nu a fost posibil de creat Doc Builder", e2);
 		}
 		this.doc = docBuilder.newDocument();
 

@@ -14,7 +14,11 @@ public abstract class HasNumber {
 	boolean trueOrFalse = false;
 	for (int i = 0; i < toBeChecked.length(); i++) {
 	    if (Character.isDigit(toBeChecked.charAt(i))) {
-		System.out.println("Cuvintul introdus contine cifre");
+	    /* Aceasta fraza este posibil de modificat, e posibil sa arunce MyDaoException
+	     * pentru a fi logata intr-un fisier separat	
+		 *System.out.println("Cuvintul introdus contine cifre");
+		 * 
+		 */
 		trueOrFalse = true;
 		break;
 	    }

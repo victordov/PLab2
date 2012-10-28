@@ -1,20 +1,24 @@
 package md.victordov.lab.servlets;
+
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.services.UnivToXmlParserService;
-
-
 
 public class UnivXmlDownloadServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
+	static Logger logger = LogManager.getLogger(UnivXmlDownloadServlet.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -27,7 +31,13 @@ public class UnivXmlDownloadServlet extends HttpServlet {
 			String outputFileName = parent + dateString + ".xml";
 
 			ServletOutputStream myOut = null;
-			byte[] byteBuf = UnivToXmlParserService.parser().getBytes();
+			byte[] byteBuf = null;
+			try {
+				byteBuf = UnivToXmlParserService.parser().getBytes();
+			} catch (MyServiceException mse) {
+				logger.error("Cout not insert databaseToString to byteBuf", mse);
+			}
+
 			ByteArrayInputStream in = new ByteArrayInputStream(byteBuf);
 			BufferedInputStream buf = new BufferedInputStream(in);
 			try {
@@ -61,11 +71,10 @@ public class UnivXmlDownloadServlet extends HttpServlet {
 			}
 
 		} catch (ServletException se) {
-			System.out.println(se.getMessage());
+			logger.error("Could not set the response", se);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error("Exception produced", e);
 		}
 
 	}
-
 }

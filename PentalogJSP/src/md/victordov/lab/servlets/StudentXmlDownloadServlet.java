@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import md.victordov.lab.common.exception.MyServiceException;
 import md.victordov.lab.services.StudentToXmlParserService;
 
 /**
@@ -21,13 +25,14 @@ import md.victordov.lab.services.StudentToXmlParserService;
 @WebServlet("/StudentXmlDownloadServlet")
 public class StudentXmlDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	static Logger logger = LogManager
+			.getLogger(StudentXmlDownloadServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public StudentXmlDownloadServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,18 +41,24 @@ public class StudentXmlDownloadServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info("Creating the output file from class Student Xml");
 		try {
 
 			String parent = "Student";
 			Date dd = new Date();
 			String dateString = new SimpleDateFormat("_y_MM_dd_HH_mm_ss")
 					.format(dd);
-			System.out.println(dateString);
 			String outputFileName = parent + dateString + ".xml";
 
 			ServletOutputStream myOut = null;
-			byte[] byteBuf = StudentToXmlParserService.parser().getBytes();
+			byte[] byteBuf = null;
+			try {
+				byteBuf = StudentToXmlParserService.parser().getBytes();
+			} catch (MyServiceException mse) {
+				logger.error(
+						"Could not copy Database to String to byteBuffer ", mse);
+			}
+
 			ByteArrayInputStream in = new ByteArrayInputStream(byteBuf);
 			BufferedInputStream buf = new BufferedInputStream(in);
 			try {
@@ -58,7 +69,6 @@ public class StudentXmlDownloadServlet extends HttpServlet {
 						"attachment; filename=" + outputFileName);
 				response.setContentLength((int) StudentToXmlParserService
 						.parser().length());
-
 				int readBytes = 0;
 
 				// read from the file; write to the ServletOutputStream
@@ -71,8 +81,6 @@ public class StudentXmlDownloadServlet extends HttpServlet {
 				throw new ServletException(ioe.getMessage());
 
 			} finally {
-
-				// close the input/output streams
 				if (myOut != null)
 					myOut.close();
 				if (buf != null)
@@ -81,10 +89,12 @@ public class StudentXmlDownloadServlet extends HttpServlet {
 			}
 
 		} catch (ServletException se) {
-			System.out.println(se.getMessage());
+			logger.error(
+					"Servlet Exception, could not set the response header ", se);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.warn("Exception produced", e);
 		}
+		logger.info("Output file was created from class Student Xml");
 	}
 
 	/**

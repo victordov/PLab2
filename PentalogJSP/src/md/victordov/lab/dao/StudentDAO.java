@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import md.victordov.lab.common.other.ErrorStringConstants;
 import md.victordov.lab.connection.ConnectionFactory;
 import md.victordov.lab.vo.Student;
 
@@ -17,7 +21,7 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 	 * 
 	 */
 	private static final long serialVersionUID = -3319859307933397896L;
-
+	private static Logger logger = LogManager.getLogger(StudentDAO.class);
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -29,10 +33,8 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 	}
 
 	public StudentDAO() {
-
 	}
 
-	
 	public Collection<Student> retrieve() {
 		Collection<Student> colStud = new ArrayList<Student>();
 		try {
@@ -54,7 +56,7 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.STUDENT_NOT_FOUND, e);
 		} finally {
 			try {
 				if (resultSet != null)
@@ -65,9 +67,9 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 					connection.close();
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_RETRIEVE, e);
 			}
 
 		}
@@ -76,7 +78,6 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 
 	}
 
-	
 	public Student retrieve(long id) {
 		Student tempStud = new Student();
 		try {
@@ -98,7 +99,7 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.STUDENT_NOT_FOUND, e);
 		} finally {
 			try {
 				if (resultSet != null)
@@ -109,9 +110,9 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 					connection.close();
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_RETRIEVE, e);
 			}
 
 		}
@@ -119,7 +120,6 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 		return tempStud;
 	}
 
-	
 	public boolean create(Student t) {
 		boolean status = true;
 		try {
@@ -139,7 +139,8 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 			status = false;
 
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.STUDENT_NOT_CREATED, e);
+
 			status = false;
 		} finally {
 			try {
@@ -148,10 +149,10 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 				if (connection != null)
 					connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 				status = false;
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_CREATE, e);
 				status = false;
 			}
 
@@ -159,7 +160,6 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 		return status;
 	}
 
-	
 	public boolean update(Student t) {
 		boolean succes = true;
 		try {
@@ -175,7 +175,7 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 			ptmt.executeUpdate();
 			succes = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.STUDENT_NOT_UPDATED, e);
 			succes = false;
 		} finally {
 			try {
@@ -184,15 +184,14 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 				if (connection != null)
 					connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn(ErrorStringConstants.ERR_UPDATE, e);
 			}
 		}
 		return succes;
 	}
 
-	
 	public boolean delete(Long id) {
 		boolean succes = true;
 		try {
@@ -203,7 +202,7 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 			ptmt.executeUpdate();
 			succes = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(ErrorStringConstants.STUDENT_NOT_DELETED, e);
 			succes = false;
 		} finally {
 			try {
@@ -214,10 +213,9 @@ public class StudentDAO implements Serializable, GenericDAO<Student> {
 			}
 
 			catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(ErrorStringConstants.PREP_OR_RS, e);
 			} catch (Exception e) {
-				e.printStackTrace();
-
+				logger.warn(ErrorStringConstants.ERR_DELETE, e);
 			}
 		}
 		return succes;
